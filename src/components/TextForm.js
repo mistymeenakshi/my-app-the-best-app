@@ -4,58 +4,76 @@ import React, { useState } from "react";
 
 export default function TextForm(props) {
   const [text, setText] = useState("Enter The Text Here");
-  const handleClick = () =>{
-    console.log("UpperCase was clicked")
-    setText("Click Done");
-  }
-  const handleOnChange = (event) =>{
-    console.log("handleOnChange was clicked")
+  const handleClickUpperCase = () => {
+    //console.log("UpperCase was clicked")
+    let newText = text.toUpperCase();
+    setText(newText);
+  };
+  const handleClickLowerCase = () => {
+    //console.log("UpperCase was clicked")
+    let newText = text.toLowerCase();
+    setText(newText);
+  };
+  const handleOnChange = (event) => {
+    // console.log("handleOnChange was clicked")
     setText(event.target.value);
-  }
+  };
   //setText("Enter Text");
   return (
-    <div>
-      <form>
-        <div className="mb-3">
-          <label for="myBox" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            value={text}
-            onChange={handleOnChange}
-            id="myBox"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" className="form-text">
-            {props.heading}
+    <>
+      <div>
+        <form>
+          <div className="mb-3">
+            <label for="myBox" className="form-label">
+              Email address
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              value={text}
+              onChange={handleOnChange}
+              id="myBox"
+              aria-describedby="emailHelp"
+            />
+            <div id="emailHelp" className="form-text">
+              {props.heading}
+            </div>
           </div>
-        </div>
-        <div className="mb-3">
-          <label for="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <div className="mb-3 form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" for="exampleCheck1">
-            Check me out
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary" onClick={handleClick}>
-          Submit
-        </button>
-        {/* <button id="button1" onclick="getPositionXY(this) + my-3">
+          <div className="mb-3">
+            <label for="exampleInputPassword1" className="form-label">
+              Password
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
+          <div className="mb-3 form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="exampleCheck1"
+            />
+            <label className="form-check-label" for="exampleCheck1">
+              Check me out
+            </label>
+          </div>
+          <button
+            type="submit"
+            className="btn btn-primary mx-1"
+            onClick={handleClickUpperCase}
+          >
+            Submit For Upper Case
+          </button>
+          <button
+            type="submit"
+            className="btn btn-primary mx-2"
+            onClick={handleClickLowerCase}
+          >
+            Submit For Lower Case
+          </button>
+          {/* <button id="button1" onclick="getPositionXY(this) + my-3">
           Convert to UpperCase
         </button>
 
@@ -68,11 +86,21 @@ export default function TextForm(props) {
           Convert to a Language
         </button> */}
 
-        {/* <button className="my-button" height="300" width="300" style={{float: 'left'}} />
+          {/* <button className="my-button" height="300" width="300" style={{float: 'left'}} />
         <button className="my-button" height="300" width="300" style={{float: 'left'}} />
         <button className="my-button" height="300" width="300" style={{float: 'left'}} />
         <button className="my-button" height="300" width="300" style={{float: 'left'}} /> */}
-      </form>
-    </div>
+        </form>
+      </div>
+      <div className="container my-3">
+        <h1>Your Text's Summary</h1>
+        <p>
+          {text.split(" ").length} words and {text.length} characters
+        </p>
+        <p> {0.008 * text.split(" ").length} Minutes Read</p>
+        <h2>Preview</h2>
+        <p>{text}</p>
+      </div>
+    </>
   );
 }
