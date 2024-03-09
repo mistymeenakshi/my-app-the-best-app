@@ -11,6 +11,7 @@ function App() {
     <Navbar title="Meenakshi's About" Contacts="Contacts"/>
     <div className="container my-3"></div>
     <TextForm heading = "Enter the Text" />
+    
     </>
   );
 }
