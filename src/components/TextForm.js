@@ -8,15 +8,18 @@ export default function TextForm(props) {
     //console.log("UpperCase was clicked")
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("Converted to UpperCase!", "success")
   };
   const handleClickLowerCase = () => {
     //console.log("UpperCase was clicked")
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert("Converted to LowerCase!", "success")
   };
   const handleOnChange = (event) => {
     // console.log("handleOnChange was clicked")
     setText(event.target.value);
+    //props.showAlert("Converted to HandleChanged!", "success")
   };
   //setText("Enter Text");
   return (
@@ -24,7 +27,7 @@ export default function TextForm(props) {
       <div>
         <form>
           <div className="mb-3">
-            <label for="myBox" className="form-label">
+            <label htmlFor="myBox" className="form-label">
               Email address
             </label>
             <input
@@ -40,7 +43,7 @@ export default function TextForm(props) {
             </div>
           </div>
           <div className="mb-3">
-            <label for="exampleInputPassword1" className="form-label">
+            <label htmlFor="exampleInputPassword1" className="form-label">
               Password
             </label>
             <input
@@ -55,7 +58,7 @@ export default function TextForm(props) {
               className="form-check-input"
               id="exampleCheck1"
             />
-            <label className="form-check-label" for="exampleCheck1">
+            <label className="form-check-label" htmlFor="exampleCheck1">
               Check me out
             </label>
           </div>
