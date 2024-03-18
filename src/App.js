@@ -4,6 +4,7 @@ import Alert from "./components/Alert";
 import Navbar from "./components/Navbar";
 import TextForm from "./components/TextForm";
 import { React, useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [alert, setAlert] = useState(null);
@@ -21,13 +22,22 @@ function App() {
 
   return (
     <>
-      <Navbar title="Meenakshi's About" Contacts="Contacts" />
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path="/About">
+            <About />
+          </Route>
+          <Route path="/Home">
+            <About />
+          </Route>
+          <Route path="/App">
+            {<TextForm showAlert={showAlert} heading="Enter the Text" />}
+          </Route>
+        </Switch>
+      </Router>
       <Alert alert={alert} />
-
       <div className="container my-3"></div>
-      {<TextForm showAlert={showAlert} heading="Enter the Text" />}
-
-      <About />
     </>
   );
 }

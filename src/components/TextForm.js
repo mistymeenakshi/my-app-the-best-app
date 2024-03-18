@@ -10,13 +10,19 @@ export default function TextForm(props) {
     setText(newText);
     props.showAlert("Converted to UpperCase!", "success")
   //  document.title='UpperCase';
+  setInterval(()=>{
+    document.title='Wohooooo';
+  },2000);
+  setInterval(()=>{
+    document.title='Boring';
+  },500);
   };
   const handleClickLowerCase = () => {
     //console.log("UpperCase was clicked")
     let newText = text.toLowerCase();
     setText(newText);
     props.showAlert("Converted to LowerCase!", "success")
-   // document.title='KLowerCase';
+   // document.title='LowerCase';
   };
   const handleOnChange = (event) => {
     // console.log("handleOnChange was clicked")
