@@ -1,117 +1,71 @@
-import React, { useState } from "react";
+import React, {useState} from 'react'
 
-//import PropTypes from 'prop-types';
 
 export default function TextForm(props) {
-  const [text, setText] = useState("Enter The Text Here");
-  const handleClickUpperCase = () => {
-    //console.log("UpperCase was clicked")
-    let newText = text.toUpperCase();
-    setText(newText);
-    props.showAlert("Converted to UpperCase!", "success")
-  //  document.title='UpperCase';
-  setInterval(()=>{
-    document.title='Wohooooo';
-  },2000);
-  setInterval(()=>{
-    document.title='Boring';
-  },500);
-  };
-  const handleClickLowerCase = () => {
-    //console.log("UpperCase was clicked")
-    let newText = text.toLowerCase();
-    setText(newText);
-    props.showAlert("Converted to LowerCase!", "success")
-   // document.title='LowerCase';
-  };
-  const handleOnChange = (event) => {
-    // console.log("handleOnChange was clicked")
-    setText(event.target.value);
-    //props.showAlert("Converted to HandleChanged!", "success")
-  };
-  //setText("Enter Text");
-  return (
-    <>
-      <div>
-        <form>
-          <div className="mb-3">
-            <label htmlFor="myBox" className="form-label">
-              Email address
-            </label>
-            <input
-              type="email"
-              className="form-control"
-              value={text}
-              onChange={handleOnChange}
-              id="myBox"
-              aria-describedby="emailHelp"
-            />
-            <div id="emailHelp" className="form-text">
-              {props.heading}
+    const handleUpClick = ()=>{
+        // console.log("Uppercase was clicked: " +  text);
+        let newText = text.toUpperCase();
+        setText(newText)
+        props.showAlert("Converted to uppercase!", "success");
+    }
+
+    const handleLoClick = ()=>{ 
+        let newText = text.toLowerCase();
+        setText(newText)
+        props.showAlert("Converted to lowercase!", "success");
+    }
+
+    const handleClearClick = ()=>{ 
+        let newText = '';
+        setText(newText);
+        props.showAlert("Text Cleared!", "success");
+    }
+
+    const handleOnChange = (event)=>{
+        // console.log("On change");
+        setText(event.target.value) 
+    }
+
+    // Credits: A
+    const handleCopy = () => {
+        console.log("I am copy");
+        var text = document.getElementById("myBox");
+        text.select(); 
+        navigator.clipboard.writeText(text.value);
+        document.getSelection().removeAllRanges();
+        props.showAlert("Copied to Clipboard!", "success");
+    }
+
+    // Credits: Coding Wala
+    const handleExtraSpaces = () => {
+        let newText = text.split(/[ ]+/);
+        setText(newText.join(" "));
+        props.showAlert("Extra spaces removed!", "success");
+    }
+
+    const [text, setText] = useState(''); 
+    // text = "new text"; // Wrong way to change the state
+    // setText("new text"); // Correct way to change the state
+    return (
+        <>
+        <div className="container" style={{color: props.mode==='dark'?'white':'#042743'}}> 
+            <h1 className='mb-4'>{props.heading}</h1>
+            <div className="mb-3"> 
+            <textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor: props.mode==='dark'?'#13466e':'white', color: props.mode==='dark'?'white':'#042743'}} id="myBox" rows="8"></textarea>
             </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              className="form-control"
-              id="exampleInputPassword1"
-            />
-          </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
-            </label>
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary mx-1"
-            onClick={handleClickUpperCase}
-          >
-            Submit For Upper Case
-          </button>
-          <button
-            type="submit"
-            className="btn btn-primary mx-2"
-            onClick={handleClickLowerCase}
-          >
-            Submit For Lower Case
-          </button>
-          {/* <button id="button1" onclick="getPositionXY(this) + my-3">
-          Convert to UpperCase
-        </button>
-
-        <button id="button2" onclick="getPositionXY(this)">
-          Convert to LowerCase
-        </button>
-
-        <br></br>
-        <button id="button3" onclick="getPositionXY(this)">
-          Convert to a Language
-        </button> */}
-
-          {/* <button className="my-button" height="300" width="300" style={{float: 'left'}} />
-        <button className="my-button" height="300" width="300" style={{float: 'left'}} />
-        <button className="my-button" height="300" width="300" style={{float: 'left'}} />
-        <button className="my-button" height="300" width="300" style={{float: 'left'}} /> */}
-        </form>
-      </div>
-      <div className="container my-3">
-        <h1>Your Text's Summary</h1>
-        <p>
-          {text.split(" ").length} words and {text.length} characters
-        </p>
-        <p> {0.008 * text.split(" ").length} Minutes Read</p>
-        <h2>Preview</h2>
-        <p>{text}</p>
-      </div>
-    </>
-  );
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Convert to Uppercase</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleLoClick}>Convert to Lowercase</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleClearClick}>Clear Text</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCopy}>Copy Text</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleExtraSpaces}>Remove Extra Spaces</button>
+        </div>
+        <div className="container my-3" style={{color: props.mode==='dark'?'white':'#042743'}}>
+            <h2>Your text summary</h2>
+            <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and {text.length} characters</p>
+            <p>{0.008 *  text.split(" ").filter((element)=>{return element.length!==0}).length} Minutes read</p>
+            <h2>Preview</h2>
+            <p>{text.length>0?text:"Nothing to preview!"}</p>
+        </div>
+        </>
+    )
 }
